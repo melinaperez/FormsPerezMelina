@@ -1,0 +1,245 @@
+<app-toolbar></app-toolbar>
+<form [formGroup]="formGroup">
+  <mat-stepper #stepper orientation="vertical" formArrayName="formArray">
+    <mat-step
+      formGroupName="0"
+      [stepControl]="$any(formArray?.get([0]))"
+      errorMessage="Complete los datos requeridos"
+    >
+      <ng-template matStepLabel>Datos Personales</ng-template>
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre</mat-label>
+        <input
+          matInput
+          placeholder="Nombre"
+          formControlName="nombre"
+          required
+        />
+        <mat-error *ngIf="nombreControl?.hasError('required')">
+          El nombre es <strong>requerido</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Apellido</mat-label>
+        <input
+          matInput
+          placeholder="Apellido"
+          formControlName="apellido"
+          required
+        />
+        <mat-error *ngIf="apellidoControl?.hasError('required')">
+          El apellido es <strong>requerido</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>DNI</mat-label>
+        <input matInput placeholder="DNI" formControlName="dni" required />
+        <mat-error *ngIf="dniControl?.hasError('required')">
+          El DNI es <strong>requerido</strong>
+        </mat-error>
+        <mat-error *ngIf="dniControl?.hasError('pattern')">
+          El DNI sólo acepta <strong>números</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Fecha nacimiento</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          formControlName="fechaNacimiento"
+        />
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="picker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="fechaNacimientoControl?.hasError('required')">
+          La fecha de nacimiento es <strong>requerida</strong>
+        </mat-error>
+        <mat-error *ngIf="fechaNacimientoControl?.hasError('minDate')">
+          La fecha de nacimiento debe ser <strong>menor a hoy</strong>
+        </mat-error>
+      </mat-form-field>
+      <br />
+      <br />
+      <div>
+        <button
+          class="button-action"
+          matStepperNext
+          mat-raised-button
+          color="primary"
+          type="button"
+        >
+          Siguiente
+        </button>
+      </div>
+    </mat-step>
+    <mat-step
+      formGroupName="1"
+      [stepControl]="$any(formArray?.get([1]))"
+      errorMessage="Complete los datos requeridos"
+    >
+      <ng-template matStepLabel>Domicilio</ng-template>
+      <mat-form-field appearance="outline">
+        <mat-label>Calle</mat-label>
+        <input matInput placeholder="Calle" formControlName="calle" />
+        <mat-error *ngIf="calleControl?.hasError('required')">
+          La calle es <strong>requerida</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Número</mat-label>
+        <input
+          matInput
+          placeholder="Número"
+          formControlName="numero"
+          required
+        />
+        <mat-error *ngIf="numeroControl?.hasError('required')">
+          El número es <strong>requerido</strong>
+        </mat-error>
+        <mat-error *ngIf="numeroControl?.hasError('pattern')">
+          El campo sólo acepta <strong>números</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Piso</mat-label>
+        <input matInput placeholder="Piso" formControlName="piso" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Dpto.</mat-label>
+        <input matInput placeholder="Dpto." formControlName="dpto" />
+      </mat-form-field>
+      <br />
+      <mat-form-field appearance="outline">
+        <mat-label>Código postal</mat-label>
+        <input
+          matInput
+          placeholder="Código postal"
+          formControlName="codigoPostal"
+          required
+        />
+        <mat-error *ngIf="codigoPostalControl?.hasError('required')">
+          El código postal es <strong>requerido</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Provincia</mat-label>
+        <input
+          matInput
+          placeholder="Provincia"
+          formControlName="provincia"
+          required
+        />
+        <mat-error *ngIf="provinciaControl?.hasError('required')">
+          La provincia es <strong>requerida</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Localidad</mat-label>
+        <input
+          matInput
+          placeholder="Localidad"
+          formControlName="localidad"
+          required
+        />
+        <mat-error *ngIf="localidadControl?.hasError('required')">
+          La localidad es <strong>requerida</strong>
+        </mat-error>
+      </mat-form-field>
+      <div>
+        <button class="button-action" mat-raised-button matStepperPrevious>
+          Anterior
+        </button>
+        <button
+          class="button-action"
+          mat-raised-button
+          color="primary"
+          matStepperNext
+          type="button"
+        >
+          Siguiente
+        </button>
+      </div>
+    </mat-step>
+    <mat-step
+      formGroupName="2"
+      [stepControl]="$any(formArray?.get([2]))"
+      errorMessage="Complete los datos requeridos"
+    >
+      <ng-template matStepLabel>Contacto</ng-template>
+      <mat-form-field appearance="outline">
+        <mat-label>Seleccione un tipo de teléfono</mat-label>
+        <mat-select [(value)]="selected" formControlName="tipoTelefono">
+          <mat-option>None</mat-option>
+          <mat-option value="1">Fijo</mat-option>
+          <mat-option value="2">Celular</mat-option>
+          <mat-option value="3">Laboral</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Número teléfono</mat-label>
+        <input
+          matInput
+          placeholder="Número teléfono"
+          formControlName="numeroTelefono"
+          required
+        />
+        <mat-icon matSuffix>call</mat-icon>
+        <mat-error *ngIf="numeroTelefonoControl?.hasError('required')">
+          El número es <strong>requerido</strong>
+        </mat-error>
+        <mat-error *ngIf="numeroTelefonoControl?.hasError('pattern')">
+          El campo sólo acepta <strong>números</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Correo electrónico</mat-label>
+        <input
+          matInput
+          placeholder="Correo electrónico"
+          formControlName="correoElectronico"
+          required
+        />
+        <mat-icon matSuffix>mail</mat-icon>
+        <mat-error *ngIf="correoElectronicoControl?.hasError('required')">
+          El correo electrónico es <strong>requerido</strong>
+        </mat-error>
+        <mat-error *ngIf="correoElectronicoControl?.hasError('email')">
+          El correo electrónico es <strong>incorrecto</strong>
+        </mat-error>
+      </mat-form-field>
+      <br />
+      <mat-form-field appearance="outline">
+        <mat-label>Linkedin</mat-label>
+        <input matInput placeholder="Linkedin" formControlName="linkedin" />
+        <mat-icon matSuffix>person</mat-icon>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Facebook</mat-label>
+        <input matInput placeholder="Facebook" formControlName="facebook" />
+        <mat-icon matSuffix>person</mat-icon>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Instagram</mat-label>
+        <input matInput placeholder="Instagram" formControlName="instagram" />
+        <mat-icon matSuffix>person</mat-icon>
+      </mat-form-field>
+      <div>
+        <button class="button-action" mat-raised-button matStepperPrevious>
+          Anterior
+        </button>
+        <button
+          class="button-action"
+          mat-raised-button
+          color="primary"
+          (click)="onSubmit()"
+          [disabled]="formGroup.invalid"
+        >
+          Enviar
+        </button>
+      </div>
+    </mat-step>
+  </mat-stepper>
+</form>
