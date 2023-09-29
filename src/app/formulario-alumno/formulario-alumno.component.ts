@@ -64,7 +64,8 @@ export class FormularioAlumnoComponent {
     });
     const formArray = this.formGroup.get('formArray') as FormArray;
   }
-
+  //GETTERS DE CONTROLES
+  //No encontré una manera mejor de obtener los controles cuando hay varios formularios agrupados en uno solo
   get nombreControl() {
     if (this.formArray) {
       const nombreControl = this.formArray.get('0')?.get('nombre');
@@ -157,6 +158,8 @@ export class FormularioAlumnoComponent {
     }
     return null;
   }
+
+  //CREACIÓN DE ALUMNO
 
   openSnackBar() {
     this._snackBar.open('Alumno creado', 'OK', {
